@@ -72,9 +72,11 @@ class WooCommerceController extends Controller
      */
     public function index()
     {
-        $results = $this->woocommerce->get('/');
+        /* $results = $this->woocommerce->get('/');
 
-        return response()->json($results);
+        return response()->json($results); */
+
+        echo 'chegamos aqui';
     }
 
     /**
