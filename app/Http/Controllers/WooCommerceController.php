@@ -12,8 +12,10 @@ class WooCommerceController extends Controller
 
     public function __construct()
     {
+        
+
         $this->woocommerce = new Client(
-            env('WOO_URL').env('WOO_ENDPOINT'),
+            env('WOO_URL'),
             env('WOO_CONSUMER_KEY'),
             env('WOO_CONSUMER_SECRET'),
             [
