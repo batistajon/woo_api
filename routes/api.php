@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/costumers', [WooCommerceController::class, 'getCostumers']);
+Route::get('/costumers', [WooCommerceController::class, 'costumers']);
 Route::get('/', [WooCommerceController::class, 'index']);
 Route::get('/authenticate', [WooCommerceController::class, 'authenticate']);
 
