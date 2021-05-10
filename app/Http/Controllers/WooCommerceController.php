@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WooCommerce;
 use Automattic\WooCommerce\Client;
+use Exception;
 use Illuminate\Http\Request;
 
 class WooCommerceController extends Controller
@@ -26,24 +27,7 @@ class WooCommerceController extends Controller
         );
     }
 
-    public function getCostumers()
-    {
-        $store_url = env('WOO_URL');
-        $endpoint = '/wc-auth/v1/costumers';
-        $params = [
-        'oauth_consumer_key' => '',
-        'oauth_timestamp' => '',
-        'oauth_nonce' => '',
-        'oauth_signature' => '',
-        'oauth_signature_method' => 'HMAC-SHA1'
-        ];
-
-        $query_string = http_build_query( $params );
-
-        echo $store_url . $endpoint . '?' . $query_string;
-    }
-
-    public function authenticateWoo()
+    public function authenticate()
     {
         $store_url = env('WOO_URL');
         $endpoint = '/wc-auth/v1/authorize';
@@ -60,13 +44,6 @@ class WooCommerceController extends Controller
         echo $store_url . $endpoint . '?' . $query_string;
     }
 
-    public function costumers()
-    {
-        $results = $this->woocommerce->get('costumers');
-
-        return response()->json($results);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -74,9 +51,28 @@ class WooCommerceController extends Controller
      */
     public function index()
     {
-        $results = $this->woocommerce->get('');
+        try {
+            $results = $this->woocommerce->get('');
 
-        return response()->json($results);
+            return response()->json($results);
+
+        } catch (Exception $e) {
+
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function costumers()
+    {
+        try {
+            $results = $this->woocommerce->get('orders/35448');
+
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
     }
 
     /**
