@@ -7,14 +7,12 @@ use Automattic\WooCommerce\Client;
 use Exception;
 use Illuminate\Http\Request;
 
-class WooCommerceController extends Controller
+class WooCommerceController extends Controller 
 {
     private $woocommerce;
 
     public function __construct()
     {
-        
-
         $this->woocommerce = new Client(
             env('WOO_URL'),
             env('WOO_CONSUMER_KEY'),
@@ -62,11 +60,17 @@ class WooCommerceController extends Controller
         }
     }
 
-    public function costumers()
+    public function customers(Request $request)
     {
         try {
-            $results = $this->woocommerce->get('orders/35448');
+            $results = $this->woocommerce->get('customers', [
+                'page' => 1,
+                'per_page' => 100,
+                'role' => 'customer'
+            ]);
 
+            $results = collect($results);
+            
             return response()->json($results);
 
         } catch (Exception $e) {
@@ -75,69 +79,20 @@ class WooCommerceController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function orders()
     {
-        //
-    }
+        try {
+            $results = $this->woocommerce->get('orders', [
+                'page' => 1,
+                'per_page' => 10,
+                'role' => 'customer'
+            ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            return response()->json($results[0]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\WooCommerce  $wooCommerce
-     * @return \Illuminate\Http\Response
-     */
-    public function show(WooCommerce $wooCommerce)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\WooCommerce  $wooCommerce
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(WooCommerce $wooCommerce)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\WooCommerce  $wooCommerce
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, WooCommerce $wooCommerce)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\WooCommerce  $wooCommerce
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(WooCommerce $wooCommerce)
-    {
-        //
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
     }
 }

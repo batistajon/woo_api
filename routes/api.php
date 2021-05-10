@@ -19,7 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/costumers', [WooCommerceController::class, 'costumers']);
+Route::get('/customers', [WooCommerceController::class, 'customers']);
 Route::get('/', [WooCommerceController::class, 'index']);
 Route::get('/authenticate', [WooCommerceController::class, 'authenticate']);
+
+Route::get('/headers', function () {
+    return response('Hello World', 200)
+                ->withHeader([
+                    'Content-Type' => 'application/json',
+                ]);
+});
 
