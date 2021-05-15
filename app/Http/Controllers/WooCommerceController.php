@@ -83,44 +83,32 @@ class WooCommerceController extends Controller
     {
         $data = $request->all();
 
-        $slack_webhook_url = 'https://hooks.slack.com/services/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';
         $icon_url = '';    
-        $command = $data['command'];
-        $text = $data['text'];
-        $token = $data['token'];
-        $channel_id = $data['channel_id'];
-        $user_name = $data['user_name'];
 
         try {
 
             $dataWebhook = [
-                "username" => $user_name,
-                "channel" => $channel_id,
+                "username" => $data['user_name'],
+                "channel" => $data['channel_id'],
                 "text" => "Mensagem retornada do Woocommerce" . $data['text'],
                 "mrkdwn" => true,
                 "icon_url" => $icon_url,
                 "attachments" => [
                     [
                         "color" => "#b0c4de",
-                        "title" => "Venda cadastrada por: " . $user_name,
+                        "title" => "Venda cadastrada por: " . $data['user_name'],
                         "fallback" => "fallback teste wiki - attachment",
                         "text" => "dados da venda",
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
-                        ],
-                        "fields" => [
-                            [
-                                "title" => "title campo fields teste wiki",
-                                "value" => "value campo fields teste wiki"
-                            ]
                         ]
                     ]
                 ]
             ];
             $json_string = json_encode($dataWebhook);
             
-            $slack_call = curl_init($slack_webhook_url);
+            $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
             curl_setopt($slack_call, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($slack_call, CURLOPT_POSTFIELDS, $json_string);
             curl_setopt($slack_call, CURLOPT_CRLF, true);
