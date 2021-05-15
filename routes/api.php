@@ -22,11 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/customers', [WooCommerceController::class, 'customers']);
 Route::get('/', [WooCommerceController::class, 'index']);
 Route::get('/authenticate', [WooCommerceController::class, 'authenticate']);
-
-Route::get('/headers', function () {
-    return response('Hello World', 200)
-                ->withHeader([
-                    'Content-Type' => 'application/json',
-                ]);
-});
+Route::post('/slack', [WooCommerceController::class, 'slack']);
 

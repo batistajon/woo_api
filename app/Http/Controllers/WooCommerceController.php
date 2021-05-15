@@ -25,23 +25,6 @@ class WooCommerceController extends Controller
         );
     }
 
-    public function authenticate()
-    {
-        $store_url = env('WOO_URL');
-        $endpoint = '/wc-auth/v1/authorize';
-        $params = [
-        'app_name' => 'Bario',
-        'scope' => 'write',
-        'user_id' => 355,
-        'return_url' => 'https://bariocafes.com.br',
-        'callback_url' => 'https://bariocafes.com.br'
-        ];
-
-        $query_string = http_build_query( $params );
-
-        echo $store_url . $endpoint . '?' . $query_string;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +53,7 @@ class WooCommerceController extends Controller
             ]);
 
             $results = collect($results);
-            
+
             return response()->json($results);
 
         } catch (Exception $e) {
@@ -93,6 +76,69 @@ class WooCommerceController extends Controller
         } catch (Exception $e) {
             
             return response()->json($e->getMessage());
+        }
+    }
+
+    public function slack(Request $request)
+    {
+        $data = $request->all();
+
+        $slack_webhook_url = 'https://hooks.slack.com/services/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';
+        $icon_url = '';    
+        $command = $data['command'];
+        $text = $data['text'];
+        $token = $data['token'];
+        $channel_id = $data['channel_id'];
+        $user_name = $data['user_name'];
+
+        return response()->json($data);
+
+        try {
+
+            $dataWebhook = array(
+                "username" => "Bario Vendas",
+                "channel" => $channel_id,
+                "text" => "Mensagem retornada do Woocommerce",
+                "mrkdwn" => true,
+                "icon_url" => $icon_url,
+                "attachments" => array(
+                     array(
+                        "color" => "#b0c4de",
+                        "title" => "title teste wiiki attach",
+                        "fallback" => "fallback teste wiki - attachment",
+                        "text" => "text teste wiki - attachment",
+                        "mrkdwn_in" => array(
+                            "fallback",
+                            "text"
+                        ),
+                        "fields" => array(
+                            array(
+                                "title" => "title campo fields teste wiki",
+                                "value" => "value campo fields teste wiki"
+                            )
+                        )
+                    )
+                )
+            );
+            $json_string = json_encode($dataWebhook);
+            
+            $slack_call = curl_init($slack_webhook_url);
+            curl_setopt($slack_call, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($slack_call, CURLOPT_POSTFIELDS, $json_string);
+            curl_setopt($slack_call, CURLOPT_CRLF, true);
+            curl_setopt($slack_call, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($slack_call, CURLOPT_HTTPHEADER, array(
+                "Content-Type: application/json",
+                "Content-Length: " . strlen($json_string))
+            );
+            
+            $result = curl_exec($slack_call);
+            curl_close($slack_call); 
+
+        } catch (\Throwable $th) {
+
+            echo 'erros';
+            //throw $th;
         }
     }
 }
