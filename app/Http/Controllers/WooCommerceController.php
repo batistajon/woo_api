@@ -90,7 +90,7 @@ class WooCommerceController extends Controller
             $dataWebhook = [
                 "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
-                "text" => "Mensagem retornada do Woocommerce" . $data['text'],
+                "text" => "Mensagem retornada do Woocommerce",
                 "mrkdwn" => true,
                 "icon_url" => $icon_url,
                 "attachments" => [
@@ -98,7 +98,7 @@ class WooCommerceController extends Controller
                         "color" => "#b0c4de",
                         "title" => "Venda cadastrada por: " . $data['user_name'],
                         "fallback" => "fallback teste wiki - attachment",
-                        "text" => "dados da venda",
+                        "text" => $data['text'],
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
