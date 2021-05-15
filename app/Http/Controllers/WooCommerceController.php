@@ -96,9 +96,9 @@ class WooCommerceController extends Controller
             $dataWebhook = array(
                 "username" => "Bario Vendas",
                 "channel" => $channel_id,
-                "text" => "Mensagem retornada do Woocommerce",
+                "text" => "Mensagem retornada do Woocommerce" . $data['text'],
                 "mrkdwn" => true,
-                "icon_url" => $icon_url,
+                "icon_url" => $icon_url,/* 
                 "attachments" => array(
                      array(
                         "color" => "#b0c4de",
@@ -116,7 +116,7 @@ class WooCommerceController extends Controller
                             )
                         )
                     )
-                )
+                ) */
             );
             $json_string = json_encode($dataWebhook);
             
