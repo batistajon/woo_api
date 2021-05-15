@@ -93,31 +93,31 @@ class WooCommerceController extends Controller
 
         try {
 
-            $dataWebhook = array(
-                "username" => "Bario Vendas",
+            $dataWebhook = [
+                "username" => $user_name,
                 "channel" => $channel_id,
                 "text" => "Mensagem retornada do Woocommerce" . $data['text'],
                 "mrkdwn" => true,
-                "icon_url" => $icon_url,/* 
-                "attachments" => array(
-                     array(
+                "icon_url" => $icon_url,
+                "attachments" => [
+                    [
                         "color" => "#b0c4de",
-                        "title" => "title teste wiiki attach",
+                        "title" => "Venda cadastrada por: " . $user_name,
                         "fallback" => "fallback teste wiki - attachment",
-                        "text" => "text teste wiki - attachment",
-                        "mrkdwn_in" => array(
+                        "text" => "dados da venda",
+                        "mrkdwn_in" => [
                             "fallback",
                             "text"
-                        ),
-                        "fields" => array(
-                            array(
+                        ],
+                        "fields" => [
+                            [
                                 "title" => "title campo fields teste wiki",
                                 "value" => "value campo fields teste wiki"
-                            )
-                        )
-                    )
-                ) */
-            );
+                            ]
+                        ]
+                    ]
+                ]
+            ];
             $json_string = json_encode($dataWebhook);
             
             $slack_call = curl_init($slack_webhook_url);
