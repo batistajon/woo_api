@@ -91,8 +91,6 @@ class WooCommerceController extends Controller
         $channel_id = $data['channel_id'];
         $user_name = $data['user_name'];
 
-        return response()->json($data);
-
         try {
 
             $dataWebhook = array(
