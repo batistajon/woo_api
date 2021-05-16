@@ -79,7 +79,7 @@ class WooCommerceController extends Controller
         }
     }
 
-    public function slack(Request $request, WooCommerce $woocommerce)
+    public function slack(Request $request)
     {
         $data = $request->all();
 
