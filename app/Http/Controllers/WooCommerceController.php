@@ -87,12 +87,12 @@ class WooCommerceController extends Controller
 
         try {
 
-            $results = $this->woocommerce->get('orders/36158');
+            //$results = $this->woocommerce->get('orders/36158');
 
             $dataWebhook = [
                 "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
-                "text" => "Numero do novo pedido: " . $results['id'],
+                "text" => "Numero do novo pedido: " . $data['text'],
                 "mrkdwn" => true,
                 "icon_url" => $icon_url,
                 "attachments" => [
@@ -100,7 +100,7 @@ class WooCommerceController extends Controller
                         "color" => "#b0c4de",
                         "title" => "Venda cadastrada por: " . $data['user_name'],
                         "fallback" => 'fallback teste',
-                        "text" => 'Total da compra: '.$results['total'],
+                        "text" => 'Total da compra: '.$data['text'],
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
