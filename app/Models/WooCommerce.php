@@ -22,7 +22,7 @@ class WooCommerce extends Model
                 [
                     "color" => "#b0c4de",
                     "title" => "Venda cadastrada por: " . $dataFromSlashCommand['user_name'],
-                    "fallback" => $dataToWebhook['id'],
+                    "fallback" => 'fallback teste',
                     "text" => 'Total da compra: '.$dataToWebhook['total'],
                     "mrkdwn_in" => [
                         "fallback",
