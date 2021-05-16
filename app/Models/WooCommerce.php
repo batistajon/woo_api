@@ -10,36 +10,20 @@ class WooCommerce extends Model
 {
     use HasFactory;
 
-    private $woocommerce;
-
-    public function __construct()
-    {
-        $this->woocommerce = new Client(
-            env('WOO_URL'),
-            env('WOO_CONSUMER_KEY'),
-            env('WOO_CONSUMER_SECRET'),
-            [
-                'wp_api' => true,
-                'version' => 'wc/v3',
-                'query_string_auth' => true
-            ]
-        );
-    }
-
-    public function slackWebhook($data, $icon_url = null)
+    public function slackWebhook($dataFromSlashCommand, $dataToWebhook, $icon_url = null)
     {
         $dataWebhook = [
-            "username" => $data['user_name'],
-            "channel" => $data['channel_id'],
-            "text" => "Mensagem retornada do Woocommerce",
+            "username" => $dataFromSlashCommand['user_name'],
+            "channel" => $dataFromSlashCommand['channel_id'],
+            "text" => "Numero do novo pedido: " . $dataToWebhook['id'],
             "mrkdwn" => true,
             "icon_url" => $icon_url,
             "attachments" => [
                 [
                     "color" => "#b0c4de",
-                    "title" => "Venda cadastrada por: " . $data['user_name'],
-                    "fallback" => "fallback teste wiki - attachment",
-                    "text" => $data['text'],
+                    "title" => "Venda cadastrada por: " . $dataFromSlashCommand['user_name'],
+                    "fallback" => $dataToWebhook['id'],
+                    "text" => 'Total da compra: '.$dataToWebhook['total'],
                     "mrkdwn_in" => [
                         "fallback",
                         "text"

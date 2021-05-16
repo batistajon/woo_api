@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WooCommerce; 
+use App\Models\WooCommerce;
+use Automattic\WooCommerce\Client;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,18 @@ class WooCommerceController extends Controller
 {
     private $woocommerce;
 
-    public function __construct(WooCommerce $woocommerce)
+    public function __construct()
     {
-        $this->woocommerce = $woocommerce;
+        $this->woocommerce = new Client(
+            env('WOO_URL'),
+            env('WOO_CONSUMER_KEY'),
+            env('WOO_CONSUMER_SECRET'),
+            [
+                'wp_api' => true,
+                'version' => 'wc/v3',
+                'query_string_auth' => true
+            ]
+        );
     }
 
     /**
@@ -69,7 +79,7 @@ class WooCommerceController extends Controller
         }
     }
 
-    public function slack(Request $request)
+    public function slack(Request $request, WooCommerce $woocommerce)
     {
         $data = $request->all();
 
@@ -77,12 +87,17 @@ class WooCommerceController extends Controller
 
         try {
 
-            $this->woocommerce->slackWebhook($data, $icon_url); 
+            $woocommerceModel = new WooCommerce();
 
-        } catch (\Throwable $th) {
+            $results = $this->woocommerce->get('orders/36158');
 
-            echo 'erros';
-            //throw $th;
+            //return response()->json($results);
+
+            $woocommerceModel->slackWebhook($data, $results, $icon_url); //TODO fazer chamada ao woocommerce e inserir dados para esse metodo
+
+        } catch (\Exception $e) {
+
+            return response()->json($e->getMessage());
         }
     }
 }
