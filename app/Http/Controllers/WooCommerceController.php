@@ -92,6 +92,10 @@ class WooCommerceController extends Controller
 
         try {
 
+            $blocos = explode(';', $data['text']);
+            $nome = $blocos[0];
+            $cpf = $blocos[1];
+            $produtos = explode(',', $blocos[2]);
             /* $dataToSendWoo = [
                 'payment_method' => 'bacs',
                 'payment_method_title' => 'teste de compra pelo slack',
@@ -140,9 +144,10 @@ class WooCommerceController extends Controller
                 "attachments" => [
                     [
                         "color" => "#b0c4de",
-                        "title" => "Venda cadastrada por: " . $data['user_name'],
+                        "title" => "Venda cadastrada para: " . $nome,
                         "fallback" => 'fallback teste',
-                        "text" => "Total da compra: " . $data['text'],
+                        "text" => "CPF: " . $cpf,
+                        "text" => "Produtos: " . $produtos,
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
