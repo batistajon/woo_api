@@ -11,7 +11,7 @@ class WooCommerceController extends Controller
 {
     private $woocommerce;
 
-    public function __construct()
+    public function __construct(WooCommerce $woocommerce)
     {
         $this->woocommerce = new Client(
             env('WOO_URL'),
@@ -83,16 +83,53 @@ class WooCommerceController extends Controller
     {
         $data = $request->all();
 
-        $icon_url = '';    
+        $icon_url = '';
 
         try {
 
-            $results = $this->woocommerce->get('orders/36158');
+            /* $dataToSendWoo = [
+                'payment_method' => 'bacs',
+                'payment_method_title' => 'teste de compra pelo slack',
+                'set_paid' => true,
+                'billing' => [
+                    'first_name' => 'Jon',
+                    'last_name' => 'Batista',
+                    'address_1' => 'Av. Henfil, 25',
+                    'address_2' => 'Bl2',
+                    'city' => 'Rio de Janeiro',
+                    'state' => 'RJ',
+                    'postcode' => '21555300',
+                    'country' => 'BR',
+                    'email' => 'batista.jonathas@gmail.com',
+                    'phone' => '(21) 98201-9916'
+                ],
+                'shipping' => [
+                    'first_name' => 'Jon',
+                    'last_name' => 'Batista',
+                    'address_1' => 'Av. Henfil, 25',
+                    'address_2' => 'Bl2',
+                    'city' => 'Rio de Janeiro',
+                    'state' => 'RJ',
+                    'postcode' => '22795641',
+                    'country' => 'BR'
+                ],
+                'line_items' => [
+                    [
+                        'product_id' => 36336,
+                        'quantity' => 2,
+                        'total' => 48.00
+                    ]
+                ]
+            ];
+
+            $results = $this->woocommerce->post('orders', $dataToSendWoo);
+
+            return response()->json($results); */
 
             $dataWebhook = [
                 "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
-                "text" => "Numero do novo pedido: " . $results->id,
+                "text" => "Numero do novo pedido: {$data['text']}",
                 "mrkdwn" => true,
                 "icon_url" => $icon_url,
                 "attachments" => [
@@ -100,7 +137,7 @@ class WooCommerceController extends Controller
                         "color" => "#b0c4de",
                         "title" => "Venda cadastrada por: " . $data['user_name'],
                         "fallback" => 'fallback teste',
-                        "text" => 'Total da compra: '. $results->total,
+                        "text" => "Total da compra: {$data['text']}",
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
