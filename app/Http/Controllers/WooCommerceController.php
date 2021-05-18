@@ -79,6 +79,11 @@ class WooCommerceController extends Controller
         }
     }
 
+    public function slackSelling()
+    {
+        
+    }
+
     public function slack(Request $request)
     {
         $data = $request->all();
@@ -126,8 +131,8 @@ class WooCommerceController extends Controller
 
             return response()->json($results); */
 
-            $dataWebhook = [
-                "username" => $data['user_name'],
+            $dataWebhook = $data
+                /* "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
                 "text" => "Numero do novo pedido: {$data['text']}",
                 "mrkdwn" => true,
@@ -144,7 +149,7 @@ class WooCommerceController extends Controller
                         ]
                     ]
                 ]
-            ];
+            */; 
             $json_string = json_encode($dataWebhook);
             
             $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
