@@ -133,7 +133,16 @@ class WooCommerceController extends Controller
 
             $dataWebhook = [
 
-                "text" => "requisicao chegando"
+                "text" => "requisicao chegando",
+                "blocks" => [
+                    [
+                        "type" => "section",
+                        "text" => [
+                            "type" => "mrkdwn",
+                            "text" => "This is a mrkdwn section block :ghost: *this is bold*, and ~this is crossed out~, and <https://google.com|this is a link>"
+                        ]
+                    ]
+                ]
                 /* "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
                 "text" => "Numero do novo pedido: {$data['text']}",
