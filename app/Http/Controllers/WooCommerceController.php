@@ -136,10 +136,14 @@ class WooCommerceController extends Controller
                 "text" => "requisicao chegando",
                 "blocks" => [
                     [
-                        "type" => "section",
-                        "text" => [
-                            "type" => "mrkdwn",
-                            "text" => "This is a mrkdwn section block :ghost: *this is bold*, and ~this is crossed out~, and <https://google.com|this is a link>"
+                        "type" => "input",
+                        "element" => [
+                            "type" => "plain_text_input",
+                            "action_id" => "plain_text_input-action"
+                        ],
+                        "label" => [
+                            "type" => "plain_text",
+                            "text" => "Nome do Cliente"
                         ]
                     ]
                 ]
