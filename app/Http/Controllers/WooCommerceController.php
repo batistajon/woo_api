@@ -133,7 +133,7 @@ class WooCommerceController extends Controller
 
             $dataWebhook = [
 
-                "title" => "requisicao chegando"
+                "text" => "requisicao chegando"
                 /* "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
                 "text" => "Numero do novo pedido: {$data['text']}",
