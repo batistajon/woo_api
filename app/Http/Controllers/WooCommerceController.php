@@ -144,10 +144,10 @@ class WooCommerceController extends Controller
                 "attachments" => [
                     [
                         "color" => "#b0c4de",
-                        "title" => "Venda cadastrada para: " . $nome,
+                        "title" => "Venda cadastrada para: " . $nome[0],
                         "fallback" => 'fallback teste',
-                        "text" => "CPF: " . $cpf,
-                        "text" => "Produtos: " . $produtos,
+                        "text" => "CPF: " . $cpf[0],
+                        "text" => "Produtos: " . $produtos[0],
                         "mrkdwn_in" => [
                             "fallback",
                             "text"
