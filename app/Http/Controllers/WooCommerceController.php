@@ -132,26 +132,8 @@ class WooCommerceController extends Controller
             return response()->json($results); */
 
             $dataWebhook = [
-                    "type" => "header",
-                    "text" => [
-                        "type" => "plain_text",
-                        "text" => "New request"
-                    ],
-                [
-                    "type" => "section",
-                    "fields" => [
-                        [
-                            "type" => "mrkdwn",
-                            "text" => "*Type:*\nPaid Time Off"
-                        ],
-                        [
-                            "type" => "mrkdwn",
-                            "text" => "*Created by:*\n<example.com|Fred Enriquez>"
-                        ]
-                    ]
-                ]
-            ];
 
+                "title" => "requisicao chegando"
                 /* "username" => $data['user_name'],
                 "channel" => $data['channel_id'],
                 "text" => "Numero do novo pedido: {$data['text']}",
@@ -169,7 +151,7 @@ class WooCommerceController extends Controller
                         ]
                     ]
                 ]
-                */
+                        */]; 
             $json_string = json_encode($dataWebhook);
             
             $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
