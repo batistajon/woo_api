@@ -137,11 +137,11 @@ class WooCommerceController extends Controller
             ];
 
 
-            return response()->json($dataWebhook);
+            $json_string = response()->json($dataWebhook);
 
 
 
-            /* $json_string = json_encode($dataWebhook);
+            //$json_string = json_encode($dataWebhook);
             
             $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
             curl_setopt($slack_call, CURLOPT_CUSTOMREQUEST, "POST");
@@ -154,7 +154,7 @@ class WooCommerceController extends Controller
             );
             
             $result = curl_exec($slack_call);
-            curl_close($slack_call); */
+            curl_close($slack_call);
 
         } catch (Exception $e) {
             
