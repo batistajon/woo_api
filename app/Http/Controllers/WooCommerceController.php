@@ -103,7 +103,7 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Cliente"
                         ]
-                    ]/* ,
+                    ],
                     [
                         "type" => "input",
                         "element" => [
@@ -114,7 +114,7 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Sobrenome"
                         ]      
-                    ],
+                    ],/*
                     [
                         "type" => "actions",
                         "element" => [
