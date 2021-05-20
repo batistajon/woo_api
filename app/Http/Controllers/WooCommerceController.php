@@ -91,7 +91,7 @@ class WooCommerceController extends Controller
 
         try {
             
-            $dataWebhook = ["text" => "requisicao normal"];
+            $dataWebhook = ["text" => $data['text']];
                 /* "blocks" => [
                     [
                         "type" => "input",
