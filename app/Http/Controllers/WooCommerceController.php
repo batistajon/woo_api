@@ -92,10 +92,6 @@ class WooCommerceController extends Controller
 
         try {
 
-            $blocos = explode(';', $data['text']);
-            $nome = $blocos[0];
-            $cpf = $blocos[1];
-            $produtos = explode(',', $blocos[2]);
             /* $dataToSendWoo = [
                 'payment_method' => 'bacs',
                 'payment_method_title' => 'teste de compra pelo slack',
