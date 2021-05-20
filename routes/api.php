@@ -23,4 +23,4 @@ Route::get('/customers', [WooCommerceController::class, 'customers']);
 Route::get('/', [WooCommerceController::class, 'index']);
 Route::get('/authenticate', [WooCommerceController::class, 'authenticate']);
 Route::post('/slack', [WooCommerceController::class, 'slack']);
-
+Route::post('/slack-form', [WooCommerceController::class, 'getFormSlack']);

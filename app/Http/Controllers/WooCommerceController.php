@@ -6,6 +6,7 @@ use App\Models\WooCommerce;
 use Automattic\WooCommerce\Client;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 class WooCommerceController extends Controller 
 {
@@ -82,6 +83,83 @@ class WooCommerceController extends Controller
     public function slackSelling()
     {
         
+    }
+
+    public function getFormSlack(Request $request): string
+    {
+        $data = $request->all();
+
+        try {
+            
+            $dataWebhook = [
+                "blocks" => [
+                    [
+                        "type" => "input",
+                        "element" => [
+                            "type" => "plain_text_input",
+                            "action_id" => "plain_text_input-action"
+                        ],
+                        "label" => [
+                            "type" => "plain_text",
+                            "text" => "Cliente"
+                        ]
+                    ],
+                    [
+                        "type" => "input",
+                        "element" => [
+                            "type" => "plain_text_input",
+                            "action_id" => "plain_text_input-action"
+                        ],
+                        "label" => [
+                            "type" => "plain_text",
+                            "text" => "Sobrenome"
+                        ]      
+                    ],
+                    [
+                        "type" => "actions",
+                        "element" => [
+                            [
+                                "type" => "button",
+                                "text" => [
+                                    "type" => "button",
+                                    "text" => "Enviar venda"
+                                ],
+                                "value" => "click_me_123",
+                                "action_id" => "actionId-0"
+                            ]
+                        ],
+                        "label" => [
+                            "type" => "plain_text",
+                            "text" => "Sobrenome"
+                        ]      
+                    ]
+                ]
+            ];
+
+
+            return response()->json($dataWebhook);
+
+
+
+            /* $json_string = json_encode($dataWebhook);
+            
+            $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
+            curl_setopt($slack_call, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($slack_call, CURLOPT_POSTFIELDS, $json_string);
+            curl_setopt($slack_call, CURLOPT_CRLF, true);
+            curl_setopt($slack_call, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($slack_call, CURLOPT_HTTPHEADER, array(
+                "Content-Type: application/json",
+                "Content-Length: " . strlen($json_string))
+            );
+            
+            $result = curl_exec($slack_call);
+            curl_close($slack_call); */
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }  
     }
 
     public function slack(Request $request)
