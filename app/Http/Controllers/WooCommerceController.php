@@ -93,7 +93,7 @@ class WooCommerceController extends Controller
             
             $dataWebhook = [
                 "blocks" => [
-                    [
+                    /* [
                         "type" => "input",
                         "element" => [
                             "type" => "plain_text_input",
@@ -114,7 +114,7 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Sobrenome"
                         ]      
-                    ],/*
+                    ], */
                     [
                         "type" => "actions",
                         "element" => [
@@ -132,7 +132,7 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Sobrenome"
                         ]      
-                    ]*/
+                    ]
                 ]
             ];
 
