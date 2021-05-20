@@ -91,8 +91,8 @@ class WooCommerceController extends Controller
 
         try {
             
-            $dataWebhook = ["text" => $data['text']];
-                /* "blocks" => [
+            $dataWebhook = [
+                "blocks" => [
                     [
                         "type" => "input",
                         "element" => [
@@ -134,7 +134,7 @@ class WooCommerceController extends Controller
                         ]      
                     ]
                 ]
-            ]; */
+            ];
 
 
             //return response()->json($dataWebhook);
