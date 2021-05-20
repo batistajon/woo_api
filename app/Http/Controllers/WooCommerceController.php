@@ -103,7 +103,7 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Cliente"
                         ]
-                    ],
+                    ]/* ,
                     [
                         "type" => "input",
                         "element" => [
@@ -134,12 +134,7 @@ class WooCommerceController extends Controller
                         ]      
                     ]
                 ]
-            ];
-
-
-            //return response()->json($dataWebhook);
-
-
+            ] */;
 
             $json_string = json_encode($dataWebhook);
             
