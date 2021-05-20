@@ -132,9 +132,9 @@ class WooCommerceController extends Controller
                             "type" => "plain_text",
                             "text" => "Sobrenome"
                         ]      
-                    ]
+                    ]*/
                 ]
-            ] */;
+            ];
 
             $json_string = json_encode($dataWebhook);
             
