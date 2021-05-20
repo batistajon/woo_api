@@ -115,10 +115,9 @@ class WooCommerceController extends Controller
                             "text" => "Sobrenome"
                         ]      
                     ],
-
-                    /*[
+                    [
                         "type" => "actions",
-                        "element" => [
+                        "elements" => [
                             [
                                 "type" => "button",
                                 "text" => [
@@ -129,7 +128,7 @@ class WooCommerceController extends Controller
                                 "action_id" => "actionId-0"
                             ]
                         ]     
-                    ]*/
+                    ]
                 ]
             ];
 
