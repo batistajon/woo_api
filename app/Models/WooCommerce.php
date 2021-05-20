@@ -10,6 +10,54 @@ class WooCommerce extends Model
 {
     use HasFactory;
 
+    public function slackFormWebhook()
+    {
+        $dataWebhook = [
+            "blocks" => [
+                [
+                    "type" => "input",
+                    "element" => [
+                        "type" => "plain_text_input",
+                        "action_id" => "plain_text_input-action"
+                    ],
+                    "label" => [
+                        "type" => "plain_text",
+                        "text" => "Nome do Cliente"
+                    ]
+                ],
+                [
+                    "type" => "input",
+                    "element" => [
+                        "type" => "plain_text_input",
+                        "action_id" => "plain_text_input-action"
+                    ],
+                    "label" => [
+                        "type" => "plain_text",
+                        "text" => "Sobrenome do Cliente"
+                    ]      
+                ],
+                [
+                    "type" => "actions",
+                    "elements" => [
+                        [
+                            "type" => "button",
+                            "text" => [
+                                "type" => "plain_text",
+                                "text" => "Enviar venda"
+                            ],
+                            "value" => "click_me_123",
+                            "action_id" => "actionId-0"
+                        ]
+                    ]     
+                ]
+            ]
+        ];
+
+        $json_string = json_encode($dataWebhook);
+
+        return $json_string;
+    }
+
     public function slackWebhook($dataFromSlashCommand, $dataToWebhook, $icon_url = null)
     {
         $dataWebhook = [

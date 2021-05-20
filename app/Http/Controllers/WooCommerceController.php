@@ -91,57 +91,17 @@ class WooCommerceController extends Controller
 
         try {
             
-            $dataWebhook = [
-                "blocks" => [
-                    [
-                        "type" => "input",
-                        "element" => [
-                            "type" => "plain_text_input",
-                            "action_id" => "plain_text_input-action"
-                        ],
-                        "label" => [
-                            "type" => "plain_text",
-                            "text" => "Cliente"
-                        ]
-                    ],
-                    [
-                        "type" => "input",
-                        "element" => [
-                            "type" => "plain_text_input",
-                            "action_id" => "plain_text_input-action"
-                        ],
-                        "label" => [
-                            "type" => "plain_text",
-                            "text" => "Sobrenome"
-                        ]      
-                    ],
-                    [
-                        "type" => "actions",
-                        "elements" => [
-                            [
-                                "type" => "button",
-                                "text" => [
-                                    "type" => "plain_text",
-                                    "text" => "Enviar venda"
-                                ],
-                                "value" => "click_me_123",
-                                "action_id" => "actionId-0"
-                            ]
-                        ]     
-                    ]
-                ]
-            ];
-
-            $json_string = json_encode($dataWebhook);
+            $slackFormWebhook = new WooCommerce();
+            $form = $slackFormWebhook->slackFormWebhook();
             
             $slack_call = curl_init(env('SLACK_WEBHOOK_URL'));
             curl_setopt($slack_call, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($slack_call, CURLOPT_POSTFIELDS, $json_string);
+            curl_setopt($slack_call, CURLOPT_POSTFIELDS, $form);
             curl_setopt($slack_call, CURLOPT_CRLF, true);
             curl_setopt($slack_call, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($slack_call, CURLOPT_HTTPHEADER, array(
                 "Content-Type: application/json",
-                "Content-Length: " . strlen($json_string))
+                "Content-Length: " . strlen($form))
             );
             
             $result = curl_exec($slack_call);
