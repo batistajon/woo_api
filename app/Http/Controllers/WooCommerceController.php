@@ -85,7 +85,7 @@ class WooCommerceController extends Controller
         
     }
 
-    public function getFormSlack(Request $request): string
+    public function getFormSlack(Request $request)
     {
         $data = $request->all();
 
