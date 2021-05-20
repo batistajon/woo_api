@@ -121,17 +121,13 @@ class WooCommerceController extends Controller
                             [
                                 "type" => "button",
                                 "text" => [
-                                    "type" => "button",
+                                    "type" => "plain_text",
                                     "text" => "Enviar venda"
                                 ],
                                 "value" => "click_me_123",
                                 "action_id" => "actionId-0"
                             ]
-                        ],
-                        "label" => [
-                            "type" => "plain_text",
-                            "text" => "Sobrenome"
-                        ]      
+                        ]     
                     ]
                 ]
             ];
