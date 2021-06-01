@@ -67,12 +67,26 @@ class WooCommerceController extends Controller
     {
         try {
             $results = $this->woocommerce->get('orders', [
-                'page' => 1,
-                'per_page' => 10,
-                'role' => 'customer'
+                'orderby' => 'date',
+                'per_page' => 50
             ]);
 
-            return response()->json($results[0]);
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function products()
+    {
+        try {
+            $results = $this->woocommerce->get('products', [
+                'per_page' => 100
+            ]);
+
+            return response()->json($results);
 
         } catch (Exception $e) {
             
@@ -90,6 +104,8 @@ class WooCommerceController extends Controller
         $data = $request->all();
 
         try {
+
+            //fazer get para buscar produtos no woo e compor formulario - Enviar prods por parametro
             
             $slackFormWebhook = new WooCommerce();
             $form = $slackFormWebhook->slackFormWebhook();
@@ -121,7 +137,7 @@ class WooCommerceController extends Controller
 
         try {
 
-            /* $dataToSendWoo = [
+            $dataToSendWoo = [
                 'payment_method' => 'bacs',
                 'payment_method_title' => 'teste de compra pelo slack',
                 'set_paid' => true,
@@ -158,7 +174,7 @@ class WooCommerceController extends Controller
 
             $results = $this->woocommerce->post('orders', $dataToSendWoo);
 
-            return response()->json($results); */
+            return response()->json($results);
 
             $dataWebhook = [ "text" => "requisicao chegando"]
                 /* "username" => $data['user_name'],
