@@ -14,7 +14,8 @@ class CreateWooCommercesTable extends Migration
     public function up()
     {
         Schema::create('woo_commerces', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id_usuario_woo');
+            $table->integer('points');
             $table->timestamps();
         });
     }

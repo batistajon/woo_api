@@ -12,7 +12,7 @@ class WooCommerceController extends Controller
 {
     private $woocommerce;
 
-    public function __construct(WooCommerce $woocommerce)
+    public function __construct()
     {
         $this->woocommerce = new Client(
             env('WOO_URL'),
@@ -34,6 +34,7 @@ class WooCommerceController extends Controller
     public function index()
     {
         try {
+
             $results = $this->woocommerce->get('');
 
             return response()->json($results);
@@ -47,13 +48,13 @@ class WooCommerceController extends Controller
     public function customers(Request $request)
     {
         try {
-            $results = $this->woocommerce->get('customers', [
-                'page' => 1,
-                'per_page' => 100,
-                'role' => 'customer'
-            ]);
 
-            $results = collect($results);
+            $data = $request->all();
+            $woocommerce = new WooCommerce();
+
+            $userId = $woocommerce->retriveIdByEmail($data['email']); 
+            
+            $results = (object) $this->woocommerce->get("customers/$userId");
 
             return response()->json($results);
 
@@ -83,6 +84,21 @@ class WooCommerceController extends Controller
     {
         try {
             $results = $this->woocommerce->get('products', [
+                'per_page' => 100
+            ]);
+
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function productDetails($id)
+    {
+        try {
+            $results = $this->woocommerce->get("products/$id", [
                 'per_page' => 100
             ]);
 

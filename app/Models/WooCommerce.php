@@ -10,6 +10,22 @@ class WooCommerce extends Model
 {
     use HasFactory;
 
+    private $woocommerce;
+
+    public function __construct()
+    {
+        $this->woocommerce = new Client(
+            env('WOO_URL'),
+            env('WOO_CONSUMER_KEY'),
+            env('WOO_CONSUMER_SECRET'),
+            [
+                'wp_api' => true,
+                'version' => 'wc/v3',
+                'query_string_auth' => true
+            ]
+        );
+    }
+
     public function slackFormWebhook()
     {
         $dataWebhook = [
@@ -82,5 +98,26 @@ class WooCommerce extends Model
         $json_string = json_encode($dataWebhook);
         
         return $json_string;
+    }
+
+    public function retriveIdByEmail(string $email): string
+    {
+        $results = $this->woocommerce->get('customers', [
+            'pages' => 100,
+            'per_page' => 100,
+            'search' => $email,
+            'role' => 'all'
+        ]);
+
+        $resultsSize = sizeof($results);
+        $userId = '';
+
+        for ($i=0; $i < $resultsSize; $i++) { 
+            if($email == $results[$i]->email) {
+                $userId = $results[$i]->id;
+            }
+        }
+
+        return $userId;
     }
 }
