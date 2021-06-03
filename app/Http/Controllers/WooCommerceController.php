@@ -110,6 +110,19 @@ class WooCommerceController extends Controller
         }
     }
 
+    public function categories()
+    {
+        try {
+            $results = $this->woocommerce->get("products/categories");
+
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
     public function slackSelling()
     {
         
