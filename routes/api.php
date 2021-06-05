@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/customers', [WooCommerceController::class, 'customers']);
 Route::get('/orders', [WooCommerceController::class, 'orders']);
 Route::get('/products', [WooCommerceController::class, 'products']);
+Route::get('/products/category/{category}', [WooCommerceController::class, 'productsCategory']);
 Route::get('/products/{id}', [WooCommerceController::class, 'productDetails']);
 Route::get('/products/categories', [WooCommerceController::class, 'categories']);
 Route::get('/', [WooCommerceController::class, 'index']);

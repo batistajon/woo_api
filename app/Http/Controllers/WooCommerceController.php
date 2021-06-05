@@ -95,6 +95,23 @@ class WooCommerceController extends Controller
         }
     }
 
+    public function productsCategory($category)
+    {
+        try {
+            $results = $this->woocommerce->get('products', [
+                'per_page' => 100,
+                'category' => $category,
+                'stock_status' => 'instock'
+            ]);
+
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
     public function productDetails($id)
     {
         try {
