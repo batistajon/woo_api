@@ -45,7 +45,7 @@ class WooCommerceController extends Controller
         }
     }
 
-    public function customers(Request $request)
+    public function customers(Request $request): string
     {
         try {
 
@@ -53,6 +53,10 @@ class WooCommerceController extends Controller
             $woocommerce = new WooCommerce();
 
             $userId = $woocommerce->retriveIdByEmail($data['email']); 
+
+            if($userId == '') {
+                return response()->json(['error' => 'Usuario nao cadastrado']);
+            }
             
             $results = (object) $this->woocommerce->get("customers/$userId");
 
@@ -67,6 +71,7 @@ class WooCommerceController extends Controller
     public function orders()
     {
         try {
+
             $results = $this->woocommerce->get('orders', [
                 'orderby' => 'date',
                 'per_page' => 50
@@ -83,6 +88,7 @@ class WooCommerceController extends Controller
     public function products()
     {
         try {
+            
             $results = $this->woocommerce->get('products', [
                 'per_page' => 100
             ]);
