@@ -88,7 +88,7 @@ class WooCommerceController extends Controller
     public function products()
     {
         try {
-            
+
             $results = $this->woocommerce->get('products', [
                 'per_page' => 100
             ]);
@@ -122,6 +122,21 @@ class WooCommerceController extends Controller
     {
         try {
             $results = $this->woocommerce->get("products/$id", [
+                'per_page' => 100
+            ]);
+
+            return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function productVariations($id)
+    {
+        try {
+            $results = $this->woocommerce->get("products/$id/variations", [
                 'per_page' => 100
             ]);
 
