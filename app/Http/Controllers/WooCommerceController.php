@@ -151,7 +151,9 @@ class WooCommerceController extends Controller
     public function categories()
     {
         try {
-            $results = $this->woocommerce->get("products/categories");
+            $results = $this->woocommerce->get("products/categories", [
+                'include' => [16, 199, 42, 222, 24, 228]
+            ]);
 
             return response()->json($results);
 
