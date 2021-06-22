@@ -26,25 +26,6 @@ class WooCommerceController extends Controller
         );
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        try {
-
-            $results = $this->woocommerce->get('');
-
-            return response()->json($results);
-
-        } catch (Exception $e) {
-
-            return response()->json($e->getMessage());
-        }
-    }
-
     public function customers(Request $request): string
     {
         try {
@@ -151,8 +132,10 @@ class WooCommerceController extends Controller
     public function categories()
     {
         try {
+            
             $results = $this->woocommerce->get("products/categories", [
-                'include' => [16, 199, 42, 222, 24, 228]
+                'include' => [16, 42, 199, 222, 223],
+                'orderby' => 'id'
             ]);
 
             return response()->json($results);

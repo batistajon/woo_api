@@ -27,10 +27,9 @@ Route::get('/customers', [WooCommerceController::class, 'customers']);
 Route::get('/orders', [WooCommerceController::class, 'orders']);
 Route::get('/products', [WooCommerceController::class, 'products']);
 Route::get('/products/category/{category}', [WooCommerceController::class, 'productsCategory']);
-Route::get('/products/{id}', [WooCommerceController::class, 'productDetails']);
+//Route::get('/products/{id}', [WooCommerceController::class, 'productDetails']);
 Route::get('/products/categories', [WooCommerceController::class, 'categories']);
 Route::get('/products/{id}/variations', [WooCommerceController::class, 'productVariations']);
-Route::get('/', [WooCommerceController::class, 'index']);
 
 /**
  * slack
