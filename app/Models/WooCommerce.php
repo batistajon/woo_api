@@ -26,6 +26,16 @@ class WooCommerce extends Model
         );
     }
 
+    public function __get($attr)
+    {
+        return $this->$attr;
+    }
+
+    public function __set($attr, $value)
+    {
+        $this->$attr = $value;
+    }
+
     public function slackFormWebhook()
     {
         $dataWebhook = [

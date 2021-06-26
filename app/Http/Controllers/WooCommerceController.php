@@ -12,18 +12,9 @@ class WooCommerceController extends Controller
 {
     private $woocommerce;
 
-    public function __construct()
+    public function __construct(WooCommerce $woocommerce)
     {
-        $this->woocommerce = new Client(
-            env('WOO_URL'),
-            env('WOO_CONSUMER_KEY'),
-            env('WOO_CONSUMER_SECRET'),
-            [
-                'wp_api' => true,
-                'version' => 'wc/v3',
-                'query_string_auth' => true
-            ]
-        );
+        $this->woocommerce = $woocommerce->__get('woocommerce');
     }
 
     public function customers(Request $request): string
@@ -31,9 +22,8 @@ class WooCommerceController extends Controller
         try {
 
             $data = $request->all();
-            $woocommerce = new WooCommerce();
 
-            $userId = $woocommerce->retriveIdByEmail($data['email']); 
+            $userId = $this->woocommerce->retriveIdByEmail($data['email']); 
 
             if($userId == '') {
                 return response()->json(['error' => 'Usuario nao cadastrado']);
@@ -75,6 +65,24 @@ class WooCommerceController extends Controller
             ]);
 
             return response()->json($results);
+
+        } catch (Exception $e) {
+            
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function productsArray(Request $request)
+    {
+        try {
+
+            $array = $request->all();
+
+            /* $results = $this->woocommerce->get('products', [
+                'per_page' => 100
+            ]); */
+
+            return response()->json($array, 200);
 
         } catch (Exception $e) {
             
