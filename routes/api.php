@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * woocommerce
  */ 
 Route::get('/customers', [WooCommerceController::class, 'customers']);
+Route::get('/customers/email/{email}', [WooCommerceController::class, 'customersTest']);
 Route::get('/orders', [WooCommerceController::class, 'orders']);
 Route::post('/products/array', [WooCommerceController::class, 'productsArray']);
 Route::get('/products', [WooCommerceController::class, 'products']);

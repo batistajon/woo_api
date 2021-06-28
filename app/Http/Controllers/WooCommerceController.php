@@ -5,19 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\WooCommerce;
 use Automattic\WooCommerce\Client;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\SlackMessage;
 
 class WooCommerceController extends Controller 
-{
+{    
+    /**
+     * woocommerce
+     *
+     * @var mixed
+     */
     private $woocommerce;
-
+    
+    /**
+     * Method __construct
+     *
+     * @param WooCommerce $woocommerce [explicite description]
+     *
+     * @return void
+     */
     public function __construct(WooCommerce $woocommerce)
     {
         $this->woocommerce = $woocommerce->__get('woocommerce');
     }
-
-    public function customers(Request $request): string
+    
+    /**
+     * Method customers
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return JsonResponse
+     */
+    public function customers(Request $request): JsonResponse
     {
         try {
 
@@ -31,14 +51,19 @@ class WooCommerceController extends Controller
             
             $results = (object) $this->woocommerce->get("customers/$userId");
 
-            return response()->json($results);
+            return response()->json($results, 200);
 
         } catch (Exception $e) {
             
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method orders
+     *
+     * @return void
+     */
     public function orders()
     {
         try {
@@ -55,7 +80,12 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method products
+     *
+     * @return void
+     */
     public function products()
     {
         try {
@@ -71,7 +101,14 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method productsArray
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return void
+     */
     public function productsArray(Request $request)
     {
         try {
@@ -89,7 +126,14 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method productsCategory
+     *
+     * @param $category $category [explicite description]
+     *
+     * @return void
+     */
     public function productsCategory($category)
     {
         try {
@@ -106,7 +150,14 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method productDetails
+     *
+     * @param $id $id [explicite description]
+     *
+     * @return void
+     */
     public function productDetails($id)
     {
         try {
@@ -121,7 +172,14 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method productVariations
+     *
+     * @param $id $id [explicite description]
+     *
+     * @return void
+     */
     public function productVariations($id)
     {
         try {
@@ -136,7 +194,12 @@ class WooCommerceController extends Controller
             return response()->json($e->getMessage());
         }
     }
-
+    
+    /**
+     * Method categories
+     *
+     * @return void
+     */
     public function categories()
     {
         try {

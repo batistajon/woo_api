@@ -18,14 +18,12 @@ class WooCommerceTest extends TestCase
     {
         $this->assertTrue(true);
     }
-
-    public function retrive_customers_by_email()
-    {
-        $response = $this->call('GET', '/api/customers');
-
-        $this->assertEquals(200, $response->status());
-    }
-
+    
+    /**
+     * Method test_return_a_valid_id_by_email
+     *
+     * @return void
+     */
     public function test_return_a_valid_id_by_email()
     {
         $id = new WooCommerce();
@@ -33,14 +31,24 @@ class WooCommerceTest extends TestCase
 
         $this->assertNotNull($id);
     }
-
+    
+    /**
+     * Method test_call_endpoint_products
+     *
+     * @return void
+     */
     public function test_call_endpoint_products()
     {
         $response = $this->call('GET', '/api/products');
 
         $this->assertEquals(200, $response->status());
     }
-
+    
+    /**
+     * Method test_call_endpoint_post_products_array_to_search
+     *
+     * @return void
+     */
     public function test_call_endpoint_post_products_array_to_search()
     {
         $response = $this->call('POST', '/api/products/array');

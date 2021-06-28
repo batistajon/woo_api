@@ -20,8 +20,7 @@ class WooCommerce extends Model
             env('WOO_CONSUMER_SECRET'),
             [
                 'wp_api' => true,
-                'version' => 'wc/v3',
-                'query_string_auth' => true
+                'version' => 'wc/v3'
             ]
         );
     }
@@ -110,7 +109,7 @@ class WooCommerce extends Model
         return $json_string;
     }
 
-    public function retriveIdByEmail(string $email): string
+    public function retriveIdByEmail(string $email)
     {
         $results = $this->woocommerce->get('customers', [
             'pages' => 100,
@@ -129,5 +128,7 @@ class WooCommerce extends Model
         }
 
         return $userId;
+
+        return $email;
     }
 }
